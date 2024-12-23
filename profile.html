@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="user-info">
+    <h2>{{ user.username }}</h2>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Balance:</strong> ${{ balance }}</p>
+    <p><strong>Total Deposits:</strong> ${{ total_deposits }}</p>
+</div>
+
+<div class="action-card">
+    <div class="action-buttons">
+        <a href="{% url 'deposit_funds' %}">
+            <button type="button" class="btn btn-primary">Add Funds</button>
+        </a>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

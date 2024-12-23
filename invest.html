@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/invest.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="invest-container">
+    <h1>Available Investments</h1>
+    <div class="invest-list">
+        {% for option in invest_options %}
+        <div class="invest-card">
+            {% if option.image %}
+            <img src="{{ option.image.url }}" alt="{{ option.name }}" class="invest-image">
+            {% endif %}
+            <h2>{{ option.name }}</h2>
+            <p><strong>Description:</strong> {{ option.description }}</p>
+            <p><strong>Yield Rate:</strong> {{ option.yield_rate }}%</p>
+            <p><strong>Minimum Investment:</strong> ${{ option.minimum_investment }}</p>
+            <button class="btn-invest-now">Invest</button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

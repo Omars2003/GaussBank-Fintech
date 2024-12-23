@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Savings Challenge{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/savings_challenge.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="challenge-container">
+    <h1>{{ challenge.name }}</h1>
+    <p><strong>Your Goal:</strong> ${{ participation.custom_goal_amount }}</p>
+    <p><strong>Weeks:</strong> {{ challenge.weeks }}</p>
+    <p><strong>Total Contributed:</strong> ${{ total_contributed }}</p>
+    <p><strong>Weekly Target:</strong> ${{ weekly_amount|floatformat:2 }}</p>
+
+    <div class="grid-container">
+        {% for week in weeks_range %}
+            <div class="grid-item {% if week <= contributions|length %}completed{% endif %}">
+                {% if week <= contributions|length %}
+                    ✓
+                {% else %}
+                    {{ week }}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <form method="post" class="contribution-form">
+        {% csrf_token %}
+        <input type="number" name="amount" placeholder="Enter amount" class="form-control" required>
+        <button type="submit" class="btn btn-primary">Contribute</button>
+    </form>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}

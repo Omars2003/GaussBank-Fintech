@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Set Your Goal{% endblock %}
+
+{% block content %}
+<div class="set-goal-container">
+    <h1>Set Your Goal for {{ challenge.name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="custom_goal">Enter your total goal amount:</label>
+        <input type="number" step="0.01" name="custom_goal" id="custom_goal" placeholder="e.g., 3000" required>
+        <button type="submit" class="btn btn-primary">Set Goal</button>
+    </form>
+</div>
+{% endblock %}

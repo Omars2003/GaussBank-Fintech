@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}No Savings Challenge{% endblock %}
+
+{% block content %}
+<div class="message-container">
+    <h1>No Savings Challenge Available</h1>
+    <p>{{ message }}</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">Go Back to Home</a>
+</div>
+{% endblock %}

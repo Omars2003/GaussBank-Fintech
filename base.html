@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GAUSSBANK{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}"> <!-- Estilos generales -->
+    {% block extra_css %}
+    <!-- Esto permitirá que cada página hija agregue sus propios estilos específicos -->
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <!-- Logo a la izquierda -->
+            <a href="{% url 'home' %}" class="header-title">GAUSSBANK</a> 
+            <nav class="header-buttons">
+                <a href="{% url 'group_savings_list' %}" class="btn">Group Savings</a>
+                <a href="{% url 'savings_challenge' %}" class="btn">Savings Challenge</a>
+                <a href="{% url 'invest' %}" class="btn">Invest</a>
+            </nav>
+            <!-- Icono de usuario a la derecha -->
+            <div class="header-user">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}">
+                        <img src="{% static 'images/profile.svg' %}" alt="Mi Perfil" class="login-icon">
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}">
+                        <img src="{% static 'images/profile.svg' %}" alt="Iniciar sesión" class="login-icon">
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p>© 2024 GAUSSBANK. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

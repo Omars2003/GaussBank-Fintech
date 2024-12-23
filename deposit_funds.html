@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1 class="title">Add Funds</h1>
+    <form id="payment-form" class="payment-form">
+        <label for="amount">Cantidad a agregar (USD):</label>
+        <input type="number" id="amount" min="1" placeholder="Ingresa el monto" required />
+        <button id="checkout-button" type="button" class="btn-primary">Add Funds</button>
+    </form>
+    <div id="payment-result" class="payment-result"></div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe("{{ stripe_public_key }}"); // Clave pública de Stripe
+
+    const checkoutButton = document.getElementById("checkout-button");
+    const paymentResult = document.getElementById("payment-result");
+
+    checkoutButton.addEventListener("click", async () => {
+    const amount = document.getElementById("amount").value;
+
+    if (!amount || amount <= 0) {
+        paymentResult.textContent = "Por favor, ingresa una cantidad válida.";
+        paymentResult.classList.add("error");
+        return;
+    }
+
+    try {
+        // Crear la sesión de Stripe Checkout
+        const response = await fetch("/create-checkout-session/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: `amount=${amount}`,
+        });
+
+        const { id } = await response.json();
+
+        if (!id) {
+            throw new Error("No se pudo crear la sesión de pago.");
+        }
+
+        // Redirigir a Stripe Checkout
+        const { error } = await stripe.redirectToCheckout({ sessionId: id });
+
+        if (!error) {
+            // Notificar al backend después del pago exitoso
+            const successResponse = await fetch("/payment-successful/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": "{{ csrf_token }}",
+                },
+                body: `amount=${amount}`,
+            });
+
+            const successData = await successResponse.json();
+
+            if (successData.error) {
+                console.error(successData.error); // Depuración
+                throw new Error(successData.error);
+            }
+
+            paymentResult.textContent = "¡Fondos agregados con éxito!";
+            paymentResult.classList.add("success");
+        }
+    } catch (err) {
+        paymentResult.textContent = `Error: ${err.message}`;
+        paymentResult.classList.add("error");
+        console.error(err); // Depuración
+    }
+});
+</script>
+{% endblock %}

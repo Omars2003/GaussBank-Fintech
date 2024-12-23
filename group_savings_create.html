@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Group{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/group_savings_create.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="create-container">
+    <h1>Create a New Group</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Create Group</button>
+    </form>
+</div>
+{% endblock %}

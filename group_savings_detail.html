@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Group Savings Detail{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/group_savings_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <h1>{{ group.name }}</h1>
+    <p><strong>Description:</strong> {{ group.description }}</p>
+    <p><strong>Goal:</strong> ${{ group.goal_amount }}</p>
+    <p><strong>Total Contributed:</strong> ${{ group.total_contributed }}</p>
+    <h2>Participants</h2>
+    <ul class="participants-list">
+        {% for participant in participants %}
+            <li>{{ participant.user.username }}: ${{ participant.amount_contributed }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Contribute</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Contribute</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - GAUSSBANK{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <section class="product-intro">
+            <h1>Welcome to GaussBank</h1>
+            <p>At GaussBank, we aim to revolutionize your financial experience by offering innovative services designed to simplify and enhance the way you manage your money. From shared group accounts to investments, we provide the tools you need to achieve your financial goals.</p>
+        </section>
+
+        <section class="product-cards">
+            
+            <div class="card-grid">
+                <!-- Group Account -->
+                <div class="card">
+                    <div class="card-content">
+                        <h2>Group Account: Simplify Shared Finances</h2>
+                    </div>
+                    <div class="card-text">
+                        <p>Collaborate effortlessly with GaussBank's Group Account. Share balances, track deposits, and manage withdrawals in real-time with family or friends.</p>
+                        <p>Send personalized deposit requests and make saving together seamless, transparent, and fun.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="{% static 'css/images/weekly_challenges.svg' %}" alt="Weekly Challenges">
+                    <h2>Weekly Savings Challenges</h2>
+                    <p>Turn saving into a fun and rewarding experience with GaussBank’s Weekly Challenges. Set goals, compete with friends, and achieve milestones one step at a time.</p>
+                    <p>Save smarter, faster, and more consistently while enjoying the journey!</p>
+                </div>
+                <div class="card">
+                    <img src="{% static 'css/images/investment_opportunities.svg' %}" alt="Investment Opportunities">
+                    <h2>Smart Investment Opportunities</h2>
+                    <p>Unlock your potential with GaussBank's diverse investment options. From stocks to ETFs, we offer tailored opportunities to grow your wealth efficiently and securely.</p>
+                    <p>Take the first step toward financial freedom by making your money work harder for you.</p>
+                </div>
+
+                <div class="card">
+                    <img src="{% static 'css/images/grow_money.svg' %}" alt="Grow Your Money">
+                    <h2>Grow Your Money</h2>
+                    <p>At GaussBank, your financial growth is our priority. With innovative tools and expert guidance, we empower you to maximize returns on your savings and investments.</p>
+                    <p>Why settle for less? Start building a brighter financial future today!</p>
+                </div>
+
+                <!-- Personalized Loans -->
+              
+
+                <!-- Global Transfers -->
+               
+
+                <!-- Savings Challenge -->
+                <div class="card">
+                    <img src="{% static 'css/images/revolutionary_fintech.svg' %}" alt="Revolutionary Fintech">
+                    <h2>Revolutionary Future</h2>
+                    <p>GaussBank is a revolutionary company dedicated to transforming the financial landscape. With innovation at its core, we aim to become a leading fintech, delivering cutting-edge financial solutions for the modern era.</p>
+                    <p>Stay tuned as we evolve to bring you more personalized and impactful financial services.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-benefits">
+            <h2>Why Choose GaussBank?</h2>
+            <ul>
+                <li><strong>Secure Transactions:</strong> Your financial data is encrypted and protected with the latest security measures.</li>
+                
+                <li><strong>User-Friendly Interface:</strong> Manage your finances easily with an intuitive platform.</li>
+                <li><strong>Personalized Solutions:</strong> Tailored services to meet your unique financial needs.</li>
+                <li><strong>Collaborative Tools:</strong> Work with friends and family seamlessly using Group Accounts and Savings Challenges.</li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+{% endblock %}

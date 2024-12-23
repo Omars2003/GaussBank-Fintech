@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Group Savings List{% endblock %}
+
+{% block content %}
+<h1>Available Group Savings</h1>
+<a href="{% url 'group_savings_create' %}" class="btn btn-primary">Create a New Group</a>
+<ul>
+    {% for group in groups %}
+        <li>
+            <a href="{% url 'group_savings_detail' group.id %}">
+                {{ group.name }} - Goal: ${{ group.goal_amount }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% if not groups %}
+    <p>No groups available. Be the first to <a href="{% url 'group_savings_create' %}">create a group</a>.</p>
+{% endif %}
+{% endblock %}
